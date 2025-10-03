@@ -3,3 +3,4 @@ dwm.o
 util.o
 config.h
 dwm
+*.orig
