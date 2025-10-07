@@ -74,6 +74,14 @@ static const char *neovide[]  = { "neovide", NULL };
 static const char *chrome[]  = { "google-chrome-stable", NULL };
 static const char *thunar[]  = { "thunar", NULL };
 
+//管理软件开启情况
+static const char *openoroff[] = {"/home/moningf/.bin/openANDoff", NULL};
+
+//截图
+static const char *fullscreenshot[] = { "/home/moningf/.bin/screenshot",  NULL };
+static const char *activescreenshot[] = { "/home/moningf/.bin/screenshot", "window", NULL };
+static const char *selectscreenshot[] = { "/home/moningf/.bin/screenshot", "select", NULL };
+
 static const Key keys[] = {
   /* modifier                     key        function        argument */
 
@@ -83,6 +91,15 @@ static const Key keys[] = {
   { MODKEY,                       XK_f,      spawn,          {.v = chrome } },   //neovide
   { MODKEY,                       XK_e,      spawn,          {.v = thunar } },   //neovide
   { MODKEY|ShiftMask,             XK_Return, spawn,          {.v = kittycmd } },  //kitty
+
+  //截图
+  { 0,                            XK_Print,  spawn,          {.v = fullscreenshot } },
+	{ ControlMask,                  XK_Print,  spawn,          {.v = activescreenshot } },
+	{ ShiftMask,                    XK_Print,  spawn,          {.v = selectscreenshot } },
+
+//管理软件开启情况
+  { MODKEY,                       XK_p,      spawn,          {.v = openoroff } },
+
 
   { MODKEY,                       XK_b,      togglebar,      {0} },               //打开or关闭bar
   { MODKEY,                       XK_j,      focusstack,     {.i = +1 } },        //顺序改变焦点
