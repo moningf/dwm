@@ -90,7 +90,7 @@ static const char *activescreenshot[] = { "/home/moningf/.bin/screenshot", "wind
 static const char *selectscreenshot[] = { "/home/moningf/.bin/screenshot", "select", NULL };
 
 //锁屏
-static const char *lock[] = {"betterlockscreen","-l", NULL };
+static const char *lock[]  = { "betterlockscreen","-l", NULL };
 
 static const Key keys[] = {
   /* modifier                     key        function        argument */
@@ -111,7 +111,7 @@ static const Key keys[] = {
 //管理软件开启情况
   { MODKEY,                       XK_p,      spawn,          {.v = openoroff } },
 //锁屏
-{ MODKEY|ShiftMask,               XK_L,      spawn,          {.v = lock } },
+  { MODKEY|ShiftMask,             XK_l,      spawn,          {.v = lock } },
 
   { MODKEY,                       XK_b,      togglebar,      {0} },               //打开or关闭bar
   { MODKEY,                       XK_j,      focusstack,     {.i = +1 } },        //顺序改变焦点
