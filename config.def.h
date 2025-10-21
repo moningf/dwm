@@ -1,9 +1,9 @@
 /* See LICENSE file for copyright and license details. */
 
 /* appearance */
-static const unsigned int borderpx  = 1;        /* border pixel of windows */
-static const unsigned int gappx     = 1;        /* gap pixel between windows */
-static const unsigned int snap      = 32;       /* snap pixel */
+static const unsigned int borderpx  = 3;        /*窗口边框 */
+static const unsigned int gappx     = 2;        /* 窗口间间距 */
+static const unsigned int snap      = 32;       /* 窗口到屏幕边缘的吸附距离 */
 static const unsigned int systraypinning = 0;   /* 0: sloppy systray follows selected monitor, >0: pin systray to monitor X */
 static const unsigned int systrayonleft = 1;    /* 0: systray in the right corner, >0: systray on left of status text */
 static const unsigned int systrayspacing = 2;   /* systray spacing */
@@ -22,16 +22,17 @@ static const char col_cyan[]        = "#005577";
 static const char mycolor1[]        = "#ffaa00";
 static const char mycolor2[]        = "#D8DEE9";
 static const char mycolor3[]        = "#434C5E";
+static const char mycolor4[]        = "#60728A";
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
 //	[SchemeNorm] = { col_gray3, col_gray1, col_gray2 },
 //	[SchemeSel]  = { col_gray4, col_cyan,  col_cyan  },
 	[SchemeNorm] = { mycolor2, mycolor3, mycolor3 },
-	[SchemeSel]  = { mycolor2, mycolor3, mycolor2  },
+	[SchemeSel]  = { mycolor1, mycolor4, mycolor2  },
 };
 
 /* tagging */
-static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
+static const char *tags[] = { "一", "二", "三", "四", "五", "六", "七", "八", "九" };
 
 static const Rule rules[] = {
 	/* xprop(1):
@@ -41,6 +42,7 @@ static const Rule rules[] = {
 	/* class      instance    title       tags mask     isfloating   monitor */
 	{ "Gimp",     NULL,       NULL,       0,            1,           -1 },
 	{ "Firefox",  NULL,       NULL,       1 << 8,       0,           -1 },
+  { "pavucontrol",  NULL,  NULL,        0,            1,           -1 },
 };
 
 /* layout(s) */
@@ -52,9 +54,9 @@ static const int refreshrate = 120;  /* refresh rate (per second) for client mov
 
 static const Layout layouts[] = {
 	/* symbol     arrange function */
-	{ "[]=",      tile },    /* first entry is default */
-	{ "><>",      NULL },    /* no layout function means floating behavior */
-	{ "[M]",      monocle },
+	{ "|TiLe| ",      tile },    /* first entry is default */
+	{ "|Float|",      NULL },    /* no layout function means floating behavior */
+	{ "|[M]|  ",      monocle },
 };
 
 /* key definitions */
@@ -80,6 +82,7 @@ static const char *neovide[]  = { "neovide", NULL };
 static const char *chrome[]  = { "google-chrome-stable", NULL };
 static const char *thunar[]  = { "thunar", NULL };
 static const char *obsidian[]  = { "obsidian", NULL };
+static const char *pavucontrol[]  = { "pavucontrol", NULL };
 
 //管理软件开启情况
 static const char *openoroff[] = {"/home/moningf/.bin/openANDoff", NULL};
@@ -91,7 +94,9 @@ static const char *selectscreenshot[] = { "/home/moningf/.bin/screenshot", "sele
 
 //锁屏
 static const char *lock[]  = { "betterlockscreen","-l", NULL };
-
+//便签页
+static const char scratchpadname[] = "scratchpad";
+static const char *scratchpadcmd[] = { "kitty", "--title", scratchpadname, "--override", "cols=120,lines=34", NULL };
 static const Key keys[] = {
   /* modifier                     key        function        argument */
 
@@ -112,6 +117,11 @@ static const Key keys[] = {
   { MODKEY,                       XK_p,      spawn,          {.v = openoroff } },
 //锁屏
   { MODKEY|ShiftMask,             XK_l,      spawn,          {.v = lock } },
+//便签页
+  { MODKEY,                       XK_grave,  togglescratch,  {.v = scratchpadcmd } },
+//声音
+  { MODKEY,                       XK_s,      spawn,          {.v = pavucontrol } },
+
 
   { MODKEY,                       XK_b,      togglebar,      {0} },               //打开or关闭bar
   { MODKEY,                       XK_j,      focusstack,     {.i = +1 } },        //顺序改变焦点
