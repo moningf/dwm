@@ -2,6 +2,7 @@
 
 /* appearance */
 static const unsigned int borderpx  = 1;        /* border pixel of windows */
+static const unsigned int gappx     = 1;        /* gap pixel between windows */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const unsigned int systraypinning = 0;   /* 0: sloppy systray follows selected monitor, >0: pin systray to monitor X */
 static const unsigned int systrayonleft = 1;    /* 0: systray in the right corner, >0: systray on left of status text */
@@ -10,7 +11,7 @@ static const int systraypinningfailfirst = 1;   /* 1: if pinning fails, display 
 static const int showsystray        = 1;        /* 0 means no systray */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
-static const int user_bh            = 0;        /* 0 means that dwm will calculate bar height, >= 1 means dwm will user_bh as bar height */
+static const int user_bh            = 30;        /* 0 means that dwm will calculate bar height, >= 1 means dwm will user_bh as bar height */
 static const char *fonts[]          = { "monospace:size=10" };
 static const char dmenufont[]       = "monospace:size=10";
 static const char col_gray1[]       = "#222222";
@@ -18,10 +19,15 @@ static const char col_gray2[]       = "#444444";
 static const char col_gray3[]       = "#bbbbbb";
 static const char col_gray4[]       = "#eeeeee";
 static const char col_cyan[]        = "#005577";
+static const char mycolor1[]        = "#ffaa00";
+static const char mycolor2[]        = "#D8DEE9";
+static const char mycolor3[]        = "#434C5E";
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
-	[SchemeNorm] = { col_gray3, col_gray1, col_gray2 },
-	[SchemeSel]  = { col_gray4, col_cyan,  col_cyan  },
+//	[SchemeNorm] = { col_gray3, col_gray1, col_gray2 },
+//	[SchemeSel]  = { col_gray4, col_cyan,  col_cyan  },
+	[SchemeNorm] = { mycolor2, mycolor3, mycolor3 },
+	[SchemeSel]  = { mycolor2, mycolor3, mycolor2  },
 };
 
 /* tagging */
@@ -73,6 +79,7 @@ static const char *roficmd[]  = { "rofi","-show","drun", NULL };
 static const char *neovide[]  = { "neovide", NULL };
 static const char *chrome[]  = { "google-chrome-stable", NULL };
 static const char *thunar[]  = { "thunar", NULL };
+static const char *obsidian[]  = { "obsidian", NULL };
 
 //管理软件开启情况
 static const char *openoroff[] = {"/home/moningf/.bin/openANDoff", NULL};
@@ -82,6 +89,9 @@ static const char *fullscreenshot[] = { "/home/moningf/.bin/screenshot",  NULL }
 static const char *activescreenshot[] = { "/home/moningf/.bin/screenshot", "window", NULL };
 static const char *selectscreenshot[] = { "/home/moningf/.bin/screenshot", "select", NULL };
 
+//锁屏
+static const char *lock[] = {"betterlockscreen","-l", NULL };
+
 static const Key keys[] = {
   /* modifier                     key        function        argument */
 
@@ -89,8 +99,9 @@ static const Key keys[] = {
   { MODKEY,                       XK_r,      spawn,          {.v = roficmd } },   //rofi
   { MODKEY,                       XK_n,      spawn,          {.v = neovide } },   //neovide
   { MODKEY,                       XK_f,      spawn,          {.v = chrome } },   //neovide
-  { MODKEY,                       XK_e,      spawn,          {.v = thunar } },   //neovide
+  { MODKEY,                       XK_e,      spawn,          {.v = thunar } },   //thunar
   { MODKEY|ShiftMask,             XK_Return, spawn,          {.v = kittycmd } },  //kitty
+  { MODKEY,                       XK_o,      spawn,          {.v = obsidian } },   //obsidian
 
   //截图
   { 0,                            XK_Print,  spawn,          {.v = fullscreenshot } },
@@ -99,7 +110,8 @@ static const Key keys[] = {
 
 //管理软件开启情况
   { MODKEY,                       XK_p,      spawn,          {.v = openoroff } },
-
+//锁屏
+{ MODKEY|ShiftMask,               XK_L,      spawn,          {.v = lock } },
 
   { MODKEY,                       XK_b,      togglebar,      {0} },               //打开or关闭bar
   { MODKEY,                       XK_j,      focusstack,     {.i = +1 } },        //顺序改变焦点
@@ -123,7 +135,7 @@ static const Key keys[] = {
   { MODKEY|ShiftMask,             XK_comma,  tagmon,         {.i = -1 } },        //
   { MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } },
     TAGKEYS(                        XK_1,                      0)
-	TAGKEYS(                        XK_2,                      1)
+	  TAGKEYS(                        XK_2,                      1)
     TAGKEYS(                        XK_3,                      2)
     TAGKEYS(                        XK_4,                      3)
     TAGKEYS(                        XK_5,                      4)
