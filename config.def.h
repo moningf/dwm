@@ -40,10 +40,13 @@ static const Rule rules[] = {
 	 *	WM_NAME(STRING) = title
 	 */
 	/* class      instance    title       tags mask     isfloating   monitor */
-	{ "Gimp",     NULL,       NULL,         0,            1,           -1 },
-	{ "Firefox",  NULL,       NULL,         1 << 8,       0,           -1 },
-  { "pavucontrol",  NULL,   NULL,         0,            1,           -1 },
-  { "Thunar",   NULL,       NULL,         0,            1,           -1 },
+  	/* class      instance    title       tags mask     isfloating     monitor      float x,y,w,h     floatborderpx*/
+	{ "Gimp",        NULL,       NULL,         0,            1,           -1 },
+	{ "Firefox",     NULL,       NULL,       1 << 8,         0,           -1,        50,50,500,500,         5 },
+  { "pavucontrol", NULL,       NULL,         0,            1,           -1,        50,50,1200,800,        5 },
+  { "Thunar",      NULL,       NULL,         0,            1,           -1,        50,50,1200,800,        5 },
+  {  NULL,         NULL,    "scratchpad",    0,            1,           -1,        50,50,1300,900,        5 },
+  { "wechat",      NULL,       NULL,         0,            1,           -1,        50,50,1500,1100,       5 },
 };
 
 /* layout(s) */
@@ -134,11 +137,11 @@ static const Key keys[] = {
   { MODKEY,                       XK_Return, zoom,           {0} },               //将焦点窗口提升至主窗口
   { MODKEY,                       XK_Tab,    view,           {0} },               //切换至上一个tab
   { MODKEY,                       XK_q,      killclient,     {0} },               //删除焦点窗口
-  { MODKEY|ShiftMask,             XK_t,      setlayout,      {.v = &layouts[0]} },//更改布局1
-  { MODKEY|ShiftMask,             XK_f,      setlayout,      {.v = &layouts[1]} },//更改布局2
-  { MODKEY|ShiftMask,             XK_m,      setlayout,      {.v = &layouts[2]} },//更改布局3
-  { MODKEY,                       XK_space,  setlayout,      {0} },               //提升窗口为全屏
-  { MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },               //使窗口为悬浮
+  { MODKEY|ShiftMask,             XK_t,      setlayout,      {.v = &layouts[0]} },//更改布局为Tile
+  { MODKEY|ShiftMask,             XK_f,      setlayout,      {.v = &layouts[1]} },//更改布局为Floating
+  { MODKEY|ShiftMask,             XK_m,      setlayout,      {.v = &layouts[2]} },//更改布局堆叠
+  { MODKEY,                       XK_space,  setlayout,      {0} },               //切换上一个布局
+  { MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },               //将焦点窗口切换为floating
   { MODKEY,                       XK_0,      view,           {.ui = ~0 } },       //
   { MODKEY|ShiftMask,             XK_0,      tag,            {.ui = ~0 } },       //
   { MODKEY,                       XK_comma,  focusmon,       {.i = -1 } },        //
