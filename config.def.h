@@ -29,6 +29,7 @@ static const char *colors[][3]      = {
 //	[SchemeSel]  = { col_gray4, col_cyan,  col_cyan  },
 	[SchemeNorm] = { mycolor2, mycolor3, mycolor3 },
 	[SchemeSel]  = { mycolor1, mycolor4, mycolor2  },
+  [SchemeHid]  = { col_cyan,  col_gray1, col_cyan  },
 };
 
 /* tagging */
@@ -128,9 +129,17 @@ static const Key keys[] = {
 
 
   { MODKEY,                       XK_b,      togglebar,      {0} },               //打开or关闭bar
-  { MODKEY,                       XK_j,      focusstack,     {.i = +1 } },        //顺序改变焦点
-  { MODKEY,                       XK_k,      focusstack,     {.i = -1 } },        //逆序改变焦点
+  //{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },        //顺序改变焦点
+  //{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },        //逆序改变焦点
   { MODKEY|ShiftMask,             XK_i,      incnmaster,     {.i = +1 } },        //将栈中的窗口压入master中
+	{ MODKEY,                       XK_j,      focusstackvis,  {.i = +1 } },
+	{ MODKEY,                       XK_k,      focusstackvis,  {.i = -1 } },
+	{ MODKEY|ShiftMask,             XK_j,      focusstackhid,  {.i = +1 } },
+	{ MODKEY|ShiftMask,             XK_k,      focusstackhid,  {.i = -1 } },  
+	{ MODKEY,                       XK_s,      show,           {0} },
+	{ MODKEY|ShiftMask,             XK_s,      showall,        {0} },
+	{ MODKEY,                       XK_h,      hide,           {0} },
+
   { MODKEY|ShiftMask,             XK_d,      incnmaster,     {.i = -1 } },        //将master中的窗口压入栈中
   { MODKEY,                       XK_h,      setmfact,       {.f = -0.05} },      //修改窗口大小
   { MODKEY,                       XK_l,      setmfact,       {.f = +0.05} },      //修改窗口大小
@@ -166,6 +175,7 @@ static const Button buttons[] = {
 	/* click                event mask      button          function        argument */
 	{ ClkLtSymbol,          0,              Button1,        setlayout,      {0} },
 	{ ClkLtSymbol,          0,              Button3,        setlayout,      {.v = &layouts[2]} },
+	{ ClkWinTitle,          0,              Button1,        togglewin,      {0} },
 	{ ClkWinTitle,          0,              Button2,        zoom,           {0} },
 	{ ClkStatusText,        0,              Button2,        spawn,          {.v = termcmd } },
 	{ ClkClientWin,         MODKEY,         Button1,        movemouse,      {0} },
