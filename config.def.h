@@ -44,10 +44,15 @@ static const Rule rules[] = {
   	/* class      instance    title       tags mask     isfloating     monitor      float x,y,w,h     floatborderpx*/
 	{ "Gimp",        NULL,       NULL,         0,            1,           -1 },
 	{ "Firefox",     NULL,       NULL,       1 << 8,         0,           -1,        50,50,500,500,         5 },
-  { "pavucontrol", NULL,       NULL,         0,            1,           -1,        50,50,1200,800,        5 },
-  { "Thunar",      NULL,       NULL,         0,            1,           -1,        50,50,1200,800,        5 },
+  { "pavucontrol", NULL,       NULL,         0,            1,           -1,        50,50,1500,1100,        5 },
+  { "Thunar",      NULL,       NULL,         0,            1,           -1,        50,50,1500,1100,        5 },
+  { "obs",         NULL,       NULL,         0,            1,           -1,        50,50,1500,1100,        5 },
+  { "obsidian",    NULL,       NULL,         0,            0,           -1},
   {  NULL,         NULL,    "scratchpad",    0,            1,           -1,        50,50,1300,900,        5 },
-  { "wechat",      NULL,       NULL,         0,            1,           -1,        50,50,1500,1100,       5 },
+  { "wechat",      NULL,       NULL,         0,            1,           -1,        50,50,1500,1100,       0 },
+  { "QQ",      NULL,       NULL,         0,            1,           -1,        50,50,1500,1100,       0 },
+  { "Blueman-manager",      NULL,       NULL,         0,            1,           -1,        50,50,1500,1100,       5 },
+  { "mpv",      NULL,       NULL,         0,            1,           -1,        50,50,1500,1100,       5 },
 };
 
 /* layout(s) */
@@ -102,6 +107,13 @@ static const char *lock[]  = { "betterlockscreen","-l", NULL };
 //便签页
 static const char scratchpadname[] = "scratchpad";
 static const char *scratchpadcmd[] = { "kitty", "--title", scratchpadname, "--override", "cols=120,lines=34", NULL };
+//亮度
+static const char *upbright[] = { "brightnessctl","s","+5%", NULL };
+static const char *downbright[] = { "brightnessctl","s","5%-", NULL };
+
+
+
+
 static const Key keys[] = {
   /* modifier                     key        function        argument */
 
@@ -124,6 +136,10 @@ static const Key keys[] = {
   { MODKEY|ShiftMask,             XK_l,      spawn,          {.v = lock } },
 //便签页
   { MODKEY,                       XK_grave,  togglescratch,  {.v = scratchpadcmd } },
+//亮度
+  { 0,                       XK_F5,      spawn,          {.v = downbright } },
+  { 0,                       XK_F6,      spawn,          {.v = upbright } },
+
 //声音
   { MODKEY,                       XK_s,      spawn,          {.v = pavucontrol } },
 
@@ -136,9 +152,9 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_k,      focusstackvis,  {.i = -1 } },
 	{ MODKEY|ShiftMask,             XK_j,      focusstackhid,  {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_k,      focusstackhid,  {.i = -1 } },  
-	{ MODKEY,                       XK_s,      show,           {0} },
-	{ MODKEY|ShiftMask,             XK_s,      showall,        {0} },
-	{ MODKEY,                       XK_h,      hide,           {0} },
+	//{ MODKEY,                       XK_s,      show,           {0} },
+	//{ MODKEY|ShiftMask,             XK_s,      showall,        {0} },
+	//{ MODKEY,                       XK_h,      hide,           {0} },
 
   { MODKEY|ShiftMask,             XK_d,      incnmaster,     {.i = -1 } },        //将master中的窗口压入栈中
   { MODKEY,                       XK_h,      setmfact,       {.f = -0.05} },      //修改窗口大小
